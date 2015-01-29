@@ -46,10 +46,9 @@ public class CondenserMK2PEAA extends CondenserMK2
 	public TileEntity createNewTileEntity(World var1, int var2)
 	{
 		TileEntity tile = new CondenserMK2TilePEAA();
-		//if (!var1.isRemote) {
-
+		if (!var1.isRemote) {
 			((CondenserMK2TilePEAA) tile).checkAroundAEGU(var1, x, y, z);
-		//}
+		}
 
 		return tile;
 	}
@@ -97,9 +96,11 @@ public class CondenserMK2PEAA extends CondenserMK2
 			Utils.spawnEntityItem(world, stack, x, y, z);
 		}
 
-		// 生成モードだった場合モードを解除
-		if(((CondenserMK2TilePEAA)tile).isGenerate) {
-			((CondenserMK2TilePEAA)tile).changeGenerate(false);
+		if (!world.isRemote) {
+			// 生成モードだった場合モードを解除
+			if(((CondenserMK2TilePEAA)tile).isGenerate) {
+				((CondenserMK2TilePEAA)tile).changeGenerate(false);
+			}
 		}
 
 		world.func_147453_f(x, y, z, block);

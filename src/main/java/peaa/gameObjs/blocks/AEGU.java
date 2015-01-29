@@ -45,11 +45,11 @@ public class AEGU extends Block
 	@Override
 	public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata) {
 		//ブロックを設置した際の動作(setBlock による設置は含まない)
-		//if (!world.isRemote) {
+		if (!world.isRemote) {
 			if(this.checkMK2(world, x, y, z) == true) {
 				this.notifyToMK2(world, x, y, z);
 			}
-		//}
+		}
 
 		return metadata;
 	}
@@ -94,10 +94,10 @@ public class AEGU extends Block
 	@Override
 	public void onBlockDestroyedByPlayer(World world, int x, int y, int z, int metadata)
 	{
-		//if (!world.isRemote) {
+		if (!world.isRemote) {
 			//System.out.println("ブロックが破壊されました");
 			notifyBreak(world, x, y, z);
-		//}
+		}
 	}
 
 	@SideOnly(Side.CLIENT)

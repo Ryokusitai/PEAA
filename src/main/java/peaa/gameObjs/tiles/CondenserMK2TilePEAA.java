@@ -33,23 +33,22 @@ public class CondenserMK2TilePEAA extends CondenserMK2Tile
 
 	public CondenserMK2TilePEAA()
 	{
-		this.inventory = new ItemStack[85];
-		this.loadChecks = false;
+		super();
 	}
 
 	@Override
 	public void updateEntity()
 	{
-		super.updateEntity();
 
-		checkGenerate();
+		super.updateEntity();
 
 		if(!worldObj.isRemote) {
 			//----作成したアイテムを隣接チェストに送る(MK2のみの能力)---------------------------------------------
 			if (this.getWorldObj().getBlock(xCoord, yCoord, zCoord) instanceof CondenserMK2)
 				pushToInventories();
+			checkGenerate();
 
-			if (isGenerate && isRequestingEmc) {
+			if (isGenerate) {
 				//System.out.println("generateEmc : " + ((double)generateEmc / 20));
 				this.addEmc((double)generateEmc / 20);
 
@@ -70,6 +69,7 @@ public class CondenserMK2TilePEAA extends CondenserMK2Tile
 			}
 
 			this.addEmc(Utils.getEmcValue(stack) * stack.stackSize);
+
 			inventory[i] = null;
 			break;
 		}
