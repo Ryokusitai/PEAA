@@ -293,9 +293,9 @@ public class CondenserMK2TilePEAA extends CondenserMK2Tile
 	public void addGenerateEmc(Block block, int x, int y, int z) {
 		AEGU aegu = (AEGU) block;
 		// 生成エネルギーをAEGUに応じて追加
-		System.out.println("addEmc : " + generateEmcOfAEGU[aegu.getTier()]);
+		//System.out.println("addEmc : " + generateEmcOfAEGU[aegu.getTier()]);
 		generateEmc += this.generateEmcOfAEGU[aegu.getTier()];
-		System.out.println("generateEmc : " + generateEmc);
+		//System.out.println("generateEmc : " + generateEmc);
 	}
 
 	public boolean destoreAEGUCoord(Block block, int x, int y, int z)
@@ -310,16 +310,16 @@ public class CondenserMK2TilePEAA extends CondenserMK2Tile
 	public void decGenerateEmc(Block block, int x, int y, int z) {
 		AEGU aegu = (AEGU) block;
 		// 生成エネルギーをAEGUに応じて減算
-		System.out.println("decEmc : " + generateEmcOfAEGU[aegu.getTier()]);
+		//System.out.println("decEmc : " + generateEmcOfAEGU[aegu.getTier()]);
 		generateEmc -= this.generateEmcOfAEGU[aegu.getTier()];
-		System.out.println("generateEmc : " + generateEmc);
+		//System.out.println("generateEmc : " + generateEmc);
 	}
 
 	public void addCoord(int x, int y, int z)
 	{
 		int i = 0;
 		for(; i < coordAEGU[0].length; i++) {
-			System.out.println("coordAEGU[0][" + i + "] " + coordAEGU[0][i]);
+			//System.out.println("coordAEGU[0][" + i + "] " + coordAEGU[0][i]);
 			if (coordAEGU[0][i] == null || coordAEGU[0][i].equals("")) {
 				coordAEGU[0][i] = String.valueOf(x);
 				coordAEGU[1][i] = String.valueOf(y);
@@ -363,7 +363,7 @@ public class CondenserMK2TilePEAA extends CondenserMK2Tile
 	public void checkNum() {
 		if (this.numAEGU < 0 || this.numAEGU > 26)
 			Minecraft.getMinecraft().thePlayer.sendChatMessage("AEGUの数が不正です。ソースコードを見直してください。");
-		System.out.println("AEGUNum : " + this.numAEGU);
+		//System.out.println("AEGUNum : " + this.numAEGU);
 	}
 
 	public void checkGenerate() {

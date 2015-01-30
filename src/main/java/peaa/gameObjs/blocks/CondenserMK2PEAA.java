@@ -97,9 +97,12 @@ public class CondenserMK2PEAA extends CondenserMK2
 		}
 
 		if (!world.isRemote) {
-			// 生成モードだった場合モードを解除
-			if(((CondenserMK2TilePEAA)tile).isGenerate) {
-				((CondenserMK2TilePEAA)tile).changeGenerate(false);
+			// PEAAのタイルかどうかチェック
+			if(tile instanceof CondenserMK2TilePEAA) {
+					// 生成モードだった場合モードを解除
+					if (((CondenserMK2TilePEAA)tile).isGenerate) {
+						((CondenserMK2TilePEAA)tile).changeGenerate(false);
+					}
 			}
 		}
 
