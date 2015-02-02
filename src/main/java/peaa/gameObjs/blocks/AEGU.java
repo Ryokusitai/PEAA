@@ -3,6 +3,7 @@ package peaa.gameObjs.blocks;
 import java.util.Random;
 
 import moze_intel.projecte.PECore;
+import moze_intel.projecte.api.ProjectEAPI;
 import moze_intel.projecte.gameObjs.ObjHandler;
 import moze_intel.projecte.utils.Constants;
 import net.minecraft.block.Block;
@@ -11,6 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import peaa.gameObjs.ObjHandlerPEAA;

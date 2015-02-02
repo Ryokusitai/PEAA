@@ -1,32 +1,25 @@
 package peaa;
 
-import java.util.Arrays;
-import java.util.List;
-
-import moze_intel.projecte.gameObjs.ObjHandler;
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.item.crafting.ShapedRecipes;
+import peaa.eaemc.EAEMC;
 import peaa.gameObjs.ObjHandlerPEAA;
 import peaa.proxies.CommonProxy;
 import peaa.utils.GuiHandlerPEAA;
-import peaa.utils.RecipeCheck;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.ModContainer;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.registry.GameData;
 
-@Mod(modid = PEAACore.MODID, name =  PEAACore.MODNAME, version =  PEAACore.VERSION, dependencies="required-after:ProjectE")
+@Mod(modid = PEAACore.MODID, name =  PEAACore.MODNAME, version =  PEAACore.VERSION, dependencies="required-after:ProjectE;after:BuildCraft;after:ic2")
 public class PEAACore
 {
 	public static final String MODID = "PEAA";
 	public static final String MODNAME = "PEAA";
-	public static final String VERSION = "1.0";
+	public static final String VERSION = "@VERSION@";
 
 	@Instance(MODID)
 	public static PEAACore instance;
@@ -50,6 +43,11 @@ public class PEAACore
 		// こうすればクリエイティブタブからは簡単に消せる
 		//ObjHandler.collectorMK3.setCreativeTab(null);
 		proxy.registerClientOnlyEvents();
+		EAEMC.extendedRegistrationEMC();
+
+		for (ModContainer mod : Loader.instance().getModList()) {
+			System.out.println("mod id : " + mod.getModId());
+		}
 
 		/* レシピ書き換えの勉強用に使ったやつ もったいなくて消していないだけなので気にしないでください
 		List list = CraftingManager.getInstance().getRecipeList();

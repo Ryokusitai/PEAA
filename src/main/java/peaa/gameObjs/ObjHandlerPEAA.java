@@ -21,6 +21,8 @@ public class ObjHandlerPEAA {
 	public static Block aeguMK2_on  = new AEGU(2, true);
 	public static Block aeguMK3_off = new AEGU(3, false);
 	public static Block aeguMK3_on  = new AEGU(3, true);
+	
+	public static Block AEGU;
 
 	public static Item kleinStarVertex = new Item()
 			.setCreativeTab(ObjHandler.cTab)
@@ -29,6 +31,7 @@ public class ObjHandlerPEAA {
 
 	public static void register()
 	{
+		AEGU = new AEGU(1, true);
 		// Blocks
 		GameRegistry.registerBlock(collectorMK4, ItemRelayBlock.class, "Collector MK4");
 		GameRegistry.registerBlock(collectorMK5, ItemRelayBlock.class, "Collector MK5");
