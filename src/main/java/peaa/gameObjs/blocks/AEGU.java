@@ -160,7 +160,7 @@ public class AEGU extends Block
 							zMK2 = String.valueOf(z);
 							//Minecraft.getMinecraft().thePlayer.sendChatMessage("MK2を発見しました");
 						} else {
-							Minecraft.getMinecraft().thePlayer.sendChatMessage("複数のMK2に対しての設置は出来ません");
+							//Minecraft.getMinecraft().thePlayer.sendChatMessage("複数のMK2に対しての設置は出来ません");
 							return false;
 						}
 					}
@@ -209,7 +209,7 @@ public class AEGU extends Block
 			}
 		}
 		if (xMK2 != "" && yMK2 != "" && zMK2 != "") {
-			Minecraft.getMinecraft().thePlayer.sendChatMessage("MK2があるのにもかかわらずこのAEGUは登録されていません。それはそれでおかしいです。");
+			//Minecraft.getMinecraft().thePlayer.sendChatMessage("MK2があるのにもかかわらずこのAEGUは登録されていません。それはそれでおかしいです。");
 			return false;
 		}
 		return false;

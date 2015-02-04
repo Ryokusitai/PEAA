@@ -330,7 +330,7 @@ public class CondenserMK2TilePEAA extends CondenserMK2Tile
 			}
 		}
 		if (i == coordAEGU[0].length) {
-			Minecraft.getMinecraft().thePlayer.sendChatMessage("おけるブロックの数以上の配列を登録しようとしています。\nソースコードを見直してください。");
+			//Minecraft.getMinecraft().thePlayer.sendChatMessage("おけるブロックの数以上の配列を登録しようとしています。\nソースコードを見直してください。");
 		}
 	}
 
@@ -362,7 +362,7 @@ public class CondenserMK2TilePEAA extends CondenserMK2Tile
 
 	public void checkNum() {
 		if (this.numAEGU < 0 || this.numAEGU > 26)
-			Minecraft.getMinecraft().thePlayer.sendChatMessage("AEGUの数が不正です。ソースコードを見直してください。");
+			System.out.println("AEGUの数が不正です。ソースコードを見直してください。");
 		//System.out.println("AEGUNum : " + this.numAEGU);
 	}
 
@@ -421,7 +421,7 @@ public class CondenserMK2TilePEAA extends CondenserMK2Tile
 						((AEGU) aegu).changeGenerate(worldObj, x, y, z);
 					}
 				} else {
-					Minecraft.getMinecraft().thePlayer.sendChatMessage("モードチェンジの際によく分からない自体が発生しています。" + aegu);
+					//Minecraft.getMinecraft().thePlayer.sendChatMessage("モードチェンジの際によく分からない自体が発生しています。" + aegu);
 				}
 			}
 		}

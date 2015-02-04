@@ -1,7 +1,9 @@
 package peaa;
 
+import net.minecraft.block.Block;
 import peaa.eaemc.EAEMC;
 import peaa.gameObjs.ObjHandlerPEAA;
+import peaa.gameObjs.blocks.CollectorPEAA;
 import peaa.proxies.CommonProxy;
 import peaa.utils.GuiHandlerPEAA;
 import cpw.mods.fml.common.Loader;
@@ -13,6 +15,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 @Mod(modid = PEAACore.MODID, name =  PEAACore.MODNAME, version =  PEAACore.VERSION, dependencies="required-after:ProjectE;after:BuildCraft;after:ic2")
 public class PEAACore
