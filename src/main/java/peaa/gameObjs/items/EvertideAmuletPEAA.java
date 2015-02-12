@@ -1,10 +1,10 @@
 package peaa.gameObjs.items;
 
+import peaa.gameObjs.entity.EntityWaterProjectilePEAA;
 import moze_intel.projecte.gameObjs.items.EvertideAmulet;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import peaa.gameObjs.entity.EntityWaterProjectilePEAA;
 
 public class EvertideAmuletPEAA extends EvertideAmulet
 {

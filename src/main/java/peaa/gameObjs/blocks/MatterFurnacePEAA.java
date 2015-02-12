@@ -1,10 +1,10 @@
 package peaa.gameObjs.blocks;
 
+import peaa.gameObjs.tiles.RMFurnaceTilePEAA;
 import moze_intel.projecte.gameObjs.blocks.MatterFurnace;
 import moze_intel.projecte.gameObjs.tiles.DMFurnaceTile;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import peaa.gameObjs.tiles.RMFurnaceTilePEAA;
 
 public class MatterFurnacePEAA extends MatterFurnace
 {

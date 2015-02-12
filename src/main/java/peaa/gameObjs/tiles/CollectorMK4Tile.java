@@ -1,8 +1,8 @@
 package peaa.gameObjs.tiles;
 
-import moze_intel.projecte.gameObjs.tiles.CollectorMK1Tile;
 import peaa.gameObjs.blocks.AEGU;
 import peaa.utils.ConstantsPEAA;
+import moze_intel.projecte.gameObjs.tiles.CollectorMK1Tile;
 
 /*
 public class CollectorMK4Tile extends CollectorMK1Tile

@@ -1,18 +1,14 @@
 package peaa.utils;
 
-import moze_intel.projecte.gameObjs.tiles.CollectorMK3Tile;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
-import net.minecraft.world.World;
 import peaa.gameObjs.container.CollectorMK4Container;
 import peaa.gameObjs.gui.GUICollectorMK4;
 import peaa.gameObjs.gui.GUICollectorMK5;
 import peaa.gameObjs.tiles.CollectorMK4Tile;
 import peaa.gameObjs.tiles.CollectorMK5Tile;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class GuiHandlerPEAA implements IGuiHandler
 {

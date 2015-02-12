@@ -1,22 +1,20 @@
 package peaa.gameObjs.tiles;
 
+import peaa.gameObjs.blocks.AEGU;
 import moze_intel.projecte.gameObjs.blocks.CondenserMK2;
 import moze_intel.projecte.gameObjs.blocks.MatterFurnace;
 import moze_intel.projecte.gameObjs.blocks.Relay;
 import moze_intel.projecte.gameObjs.tiles.CondenserMK2Tile;
 import moze_intel.projecte.utils.Utils;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Facing;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import peaa.gameObjs.blocks.AEGU;
 
 public class CondenserMK2TilePEAA extends CondenserMK2Tile
 {

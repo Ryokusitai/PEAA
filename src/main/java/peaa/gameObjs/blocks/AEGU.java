@@ -2,21 +2,18 @@ package peaa.gameObjs.blocks;
 
 import java.util.Random;
 
+import peaa.gameObjs.ObjHandlerPEAA;
+import peaa.gameObjs.tiles.CondenserMK2TilePEAA;
 import moze_intel.projecte.PECore;
-import moze_intel.projecte.api.ProjectEAPI;
 import moze_intel.projecte.gameObjs.ObjHandler;
 import moze_intel.projecte.utils.Constants;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-import peaa.gameObjs.ObjHandlerPEAA;
-import peaa.gameObjs.tiles.CondenserMK2TilePEAA;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -149,11 +146,6 @@ public class AEGU extends Block
 				for (int z = zCoord - 1; z <= zCoord + 1; z++) {
 					//System.out.println("x "+ x + " y " + y + " z " + z + " block name : " + world.getBlock(x, y, z));
 					if (world.getBlock(x, y, z) instanceof CondenserMK2PEAA) {
-						// 既に登録しているものを再登録しようとしているなら複数設置ではないので問題なし。
-						//if (xMK2.equals(String.valueOf(x)) && yMK2.equals(String.valueOf(y)) && yMK2.equals(String.valueOf(y)))
-						//		return true;
-
-						//System.out.println("xMK2 = " + xMK2 + " yMK2 = " + yMK2 + " zMK2 = " + zMK2);
 						if (xMK2 == "" && yMK2 == "" && zMK2 == "") {
 							xMK2 = String.valueOf(x);
 							yMK2 = String.valueOf(y);
@@ -183,8 +175,10 @@ public class AEGU extends Block
 		int x = Integer.parseInt(xMK2);
 		int y = Integer.parseInt(yMK2);
 		int z = Integer.parseInt(zMK2);
-		CondenserMK2TilePEAA tile = (CondenserMK2TilePEAA)world.getTileEntity(x, y, z);
-		tile.storeAEGUCoord(this, xCoord, yCoord, zCoord);
+		if (world.getTileEntity(x, y, z) instanceof CondenserMK2TilePEAA) {
+			CondenserMK2TilePEAA tile = (CondenserMK2TilePEAA)world.getTileEntity(x, y, z);
+			tile.storeAEGUCoord(this, xCoord, yCoord, zCoord);
+		}
 	}
 
 	/**
@@ -198,7 +192,7 @@ public class AEGU extends Block
 			for (int y = yCoord - 1; y <= yCoord + 1; y++) {
 				for (int z = zCoord - 1; z <= zCoord + 1; z++) {
 					//System.out.println("x "+ x + " y " + y + " z " + z + " block name : " + world.getBlock(x, y, z));
-					if (world.getBlock(x, y, z) instanceof CondenserMK2PEAA) {
+					if (world.getBlock(x, y, z) instanceof CondenserMK2PEAA && world.getTileEntity(x, y, z) instanceof CondenserMK2TilePEAA) {
 						CondenserMK2TilePEAA tile = (CondenserMK2TilePEAA)world.getTileEntity(x, y, z);
 						if (tile.destoreAEGUCoord(this, xCoord, yCoord, zCoord) == true) {
 							//Minecraft.getMinecraft().thePlayer.sendChatMessage("情報削除完了");
@@ -224,10 +218,10 @@ public class AEGU extends Block
 		for (int x = xCoord - 1; x <= xCoord + 1; x++) {
 			for (int y = yCoord - 1; y <= yCoord + 1; y++) {
 				for (int z = zCoord - 1; z <= zCoord + 1; z++) {
-					if (world.getBlock(x, y, z) instanceof CondenserMK2PEAA) {
+					if (world.getBlock(x, y, z) instanceof CondenserMK2PEAA && world.getTileEntity(x, y, z) instanceof CondenserMK2TilePEAA) {
 						CondenserMK2TilePEAA tile = (CondenserMK2TilePEAA)world.getTileEntity(x, y, z);
 						if (tile.checkStore(xCoord, yCoord, zCoord) != -1) {
-							System.out.println(world.getBlock(x, y, z));
+							//System.out.println(world.getBlock(x, y, z));
 							if (tile.isGenerate)
 								player.openGui(PECore.instance, Constants.CONDENSER_MK2_GUI, world, x, y, z);
 							return true;

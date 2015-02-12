@@ -1,17 +1,17 @@
 package peaa.gameObjs.blocks;
 
-import moze_intel.projecte.gameObjs.blocks.Collector;
 import peaa.PEAACore;
 import peaa.gameObjs.tiles.CollectorMK4Tile;
 import peaa.gameObjs.tiles.CollectorMK5Tile;
 import peaa.utils.ConstantsPEAA;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import moze_intel.projecte.gameObjs.blocks.Collector;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class CollectorPEAA extends Collector
 {
