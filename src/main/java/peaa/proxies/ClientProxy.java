@@ -13,7 +13,7 @@ public class ClientProxy extends CommonProxy
 	private int flyToggleTimer = 0;			// Jumpキーの入力間隔
 	private int sprintToggleTimer = 0;		// ダッシュの入力間隔
 
-	boolean isHeld;
+	boolean isHold;
 	float flyingSpeed;
 
 	public static final float moveFactor = 0.4F;
@@ -25,9 +25,9 @@ public class ClientProxy extends CommonProxy
 	}
 
 	@Override
-	public boolean doFlightOnSide(EntityPlayer player, boolean isFlying, float flyingSpeed, boolean isHeld)
+	public boolean doFlightOnSide(EntityPlayer player, boolean isFlying, float flyingSpeed, boolean isHold)
 	{
-		this.isHeld = isHeld;
+		this.isHold = isHold;
 		this.flyingSpeed = flyingSpeed;
 
 		this.allowFlying = !(player.capabilities.isCreativeMode || player.capabilities.allowFlying);
@@ -94,7 +94,7 @@ public class ClientProxy extends CommonProxy
 
         player.motionY = 0.0D;
 
-        if (playerSP.movementInput.sneak && !isHeld) {
+        if (playerSP.movementInput.sneak && !isHold) {
             player.motionY -= moveFactor;
         }
 
@@ -112,5 +112,6 @@ public class ClientProxy extends CommonProxy
             player.motionX = player.motionZ = 0;
         }
         player.moveFlying(moveStrafe, moveForward, flyingSpeed * 10.0F);//moveFactor * 1.2F);
+        //player.moveFlying(moveStrafe, moveForward, playerSP.movementInput.sneak?(flyingSpeed * 35.0F):(flyingSpeed * 10.0F));//
     }
 }

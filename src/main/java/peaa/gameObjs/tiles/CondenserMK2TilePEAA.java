@@ -28,6 +28,7 @@ public class CondenserMK2TilePEAA extends CondenserMK2Tile
 	private int numAEGU = 0;
 	public boolean isGenerate = false;
 	int generateEmc = 0;
+	//private int buffer = 0;		// あふれた分を記録する
 
 	public CondenserMK2TilePEAA()
 	{
@@ -65,10 +66,29 @@ public class CondenserMK2TilePEAA extends CondenserMK2Tile
 			{
 				continue;
 			}
-
-			this.addEmc(Utils.getEmcValue(stack) * stack.stackSize);
-
-			inventory[i] = null;
+			// 整数オーバーフローチェック
+			if ((long)Utils.getEmcValue(stack) * stack.stackSize + (int)this.getStoredEmc() > this.getMaxEmc()) {
+				//System.out.println((long) ((long)Utils.getEmcValue(stack) + this.getStoredEmc()));
+				/*if ((long) ((long)Utils.getEmcValue(stack) + this.getStoredEmc()) > this.getMaxEmc()) {		// 1つ変換するだけでオーバーフローになる場合
+					System.out.println("pattern 1-1");
+					this.setEmc(this.getMaxEmc());
+					buffer += (int) ((long)((long)Utils.getEmcValue(stack) + this.getStoredEmc()) - this.getMaxEmc());	// あふれるぶんを記録
+				} else {*/
+				//	System.out.println("pattern 1-2");
+					this.addEmc(Utils.getEmcValue(stack));
+				//}
+				decrStackSize(i, 1);
+			}
+			else {
+				this.addEmc(Utils.getEmcValue(stack) * stack.stackSize);
+				inventory[i] = null;
+			}
+			// あふれた分を追加
+			/*if (buffer != 0 && (long) ((long)buffer + this.getStoredEmc()) < Integer.MAX_VALUE ) {
+				System.out.println("add buffer");
+				this.addEmc(buffer);
+				buffer = 0;
+			}*/
 			break;
 		}
 
