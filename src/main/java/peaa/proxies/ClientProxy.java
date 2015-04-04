@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraftforge.common.MinecraftForge;
 import peaa.events.ToolTipEvent;
+import peaa.gameObjs.items.RingFlightTeleport;
 
 public class ClientProxy extends CommonProxy
 {
@@ -111,7 +112,7 @@ public class ClientProxy extends CommonProxy
         if (moveForward != 0 || moveStrafe != 0) {
             player.motionX = player.motionZ = 0;
         }
-        player.moveFlying(moveStrafe, moveForward, flyingSpeed * 10.0F);//moveFactor * 1.2F);
-        //player.moveFlying(moveStrafe, moveForward, playerSP.movementInput.sneak?(flyingSpeed * 35.0F):(flyingSpeed * 10.0F));//
+        //player.moveFlying(moveStrafe, moveForward, flyingSpeed * 10.0F);//moveFactor * 1.2F);
+        player.moveFlying(moveStrafe, moveForward, playerSP.movementInput.sneak?(flyingSpeed * 35.0F):(flyingSpeed * 10.0F));//
     }
 }

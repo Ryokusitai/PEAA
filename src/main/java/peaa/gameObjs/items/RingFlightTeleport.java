@@ -54,11 +54,11 @@ public class RingFlightTeleport extends ItemCharge
 	private boolean canFlying;				// (アイテムの所持状態的に)飛べるかどうか
 	private boolean isFlying;				// 飛んでいるかどうか
 	// 飛行速度の最低値とチャージ時の速度
-	private float flyBaseSpeed = 0.022f;
-	private float[] flySpeed = {flyBaseSpeed, flyBaseSpeed * 2.0F, flyBaseSpeed * 4.0F, flyBaseSpeed * 8.0F};
+	private static float flyBaseSpeed = 0.022f;
+	private static float[] flySpeed = {flyBaseSpeed, flyBaseSpeed * 2.0F, flyBaseSpeed * 4.0F, flyBaseSpeed * 8.0F};
 	// 飛行中の最低消費Emcとチャージ時の消費Emc
-	private float flyBaseEmc = 0.16F;
-	private float[] flyEmc = {flyBaseEmc, flyBaseEmc * 2.0F, flyBaseEmc * 4.0F, flyBaseEmc * 8.0F};
+	private static float flyBaseEmc = 0.16F;
+	private static float[] flyEmc = {flyBaseEmc, flyBaseEmc * 2.0F, flyBaseEmc * 4.0F, flyBaseEmc * 8.0F};
 	// 現在設定されている速度
 	private float flyingSpeed;
 	// 手に持っているかどうか
@@ -132,6 +132,10 @@ public class RingFlightTeleport extends ItemCharge
 	public boolean onDroppedByPlayer(ItemStack stack, EntityPlayer player) {
 		canFlying = false;
 		return true;
+	}
+
+	public static float getBaseSpeed() {
+		return flyBaseSpeed;
 	}
 
 	// onUpdateではplayerMPが渡されているためflight命令が実行できない

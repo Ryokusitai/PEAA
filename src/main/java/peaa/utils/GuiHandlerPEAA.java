@@ -1,6 +1,7 @@
 package peaa.utils;
 
 import peaa.gameObjs.container.CollectorMK4Container;
+import peaa.gameObjs.container.CollectorMK5Container;
 import peaa.gameObjs.gui.GUICollectorMK4;
 import peaa.gameObjs.gui.GUICollectorMK5;
 import peaa.gameObjs.tiles.CollectorMK4Tile;
@@ -24,7 +25,7 @@ public class GuiHandlerPEAA implements IGuiHandler
 
 		} else if (ID == ConstantsPEAA.COLLECTOR5_GUI) {
 			if (tile != null && tile instanceof CollectorMK5Tile)
-				return new CollectorMK4Container(player.inventory, (CollectorMK5Tile) tile);
+				return new CollectorMK5Container(player.inventory, (CollectorMK5Tile) tile);
 		}
 
 		return null;
