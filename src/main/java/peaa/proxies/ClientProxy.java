@@ -109,7 +109,7 @@ public class ClientProxy extends CommonProxy
         float moveForward = playerSP.movementInput.moveForward;
         float moveStrafe = playerSP.movementInput.moveStrafe;
 
-        if (moveForward != 0 || moveStrafe != 0) {
+        if (moveForward != 0 || moveStrafe != 0 || RingFlightTeleport.getBaseSpeed() == flyingSpeed) {
             player.motionX = player.motionZ = 0;
         }
         //player.moveFlying(moveStrafe, moveForward, flyingSpeed * 10.0F);//moveFactor * 1.2F);
