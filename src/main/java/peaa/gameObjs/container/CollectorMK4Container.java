@@ -18,7 +18,8 @@ public class CollectorMK4Container extends Container
 	private CollectorMK4Tile tile;
 	private int sunLevel;
 
-	public CollectorMK4Container(InventoryPlayer invPlayer, CollectorMK4Tile collector) {
+	public CollectorMK4Container(InventoryPlayer invPlayer, CollectorMK4Tile collector)
+	{
 		this.tile = collector;
 		tile.openInventory();
 

@@ -7,7 +7,8 @@ import moze_intel.projecte.PECore;
 import moze_intel.projecte.gameObjs.ObjHandler;
 import moze_intel.projecte.gameObjs.blocks.CondenserMK2;
 import moze_intel.projecte.utils.Constants;
-import moze_intel.projecte.utils.Utils;
+//import moze_intel.projecte.utils.Utils;
+import moze_intel.projecte.utils.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -92,7 +93,7 @@ public class CondenserMK2PEAA extends CondenserMK2
 				continue;
 			}
 
-			Utils.spawnEntityItem(world, stack, x, y, z);
+			WorldHelper.spawnEntityItem(world, stack, x, y, z);
 		}
 
 		if (!world.isRemote) {

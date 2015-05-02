@@ -5,7 +5,9 @@ import moze_intel.projecte.gameObjs.blocks.CondenserMK2;
 import moze_intel.projecte.gameObjs.blocks.MatterFurnace;
 import moze_intel.projecte.gameObjs.blocks.Relay;
 import moze_intel.projecte.gameObjs.tiles.CondenserMK2Tile;
-import moze_intel.projecte.utils.Utils;
+import moze_intel.projecte.utils.EMCHelper;
+import moze_intel.projecte.utils.ItemHelper;
+//import moze_intel.projecte.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -67,7 +69,7 @@ public class CondenserMK2TilePEAA extends CondenserMK2Tile
 				continue;
 			}
 			// 整数オーバーフローチェック
-			if ((long)Utils.getEmcValue(stack) * stack.stackSize + (int)this.getStoredEmc() > this.getMaxEmc()) {
+			if ((long)EMCHelper.getEmcValue(stack) * stack.stackSize + (int)this.getStoredEmc() > this.getMaxEmc()) {
 				//System.out.println((long) ((long)Utils.getEmcValue(stack) + this.getStoredEmc()));
 				/*if ((long) ((long)Utils.getEmcValue(stack) + this.getStoredEmc()) > this.getMaxEmc()) {		// 1つ変換するだけでオーバーフローになる場合
 					System.out.println("pattern 1-1");
@@ -75,12 +77,12 @@ public class CondenserMK2TilePEAA extends CondenserMK2Tile
 					buffer += (int) ((long)((long)Utils.getEmcValue(stack) + this.getStoredEmc()) - this.getMaxEmc());	// あふれるぶんを記録
 				} else {*/
 				//	System.out.println("pattern 1-2");
-					this.addEmc(Utils.getEmcValue(stack));
+					this.addEmc(EMCHelper.getEmcValue(stack));
 				//}
 				decrStackSize(i, 1);
 			}
 			else {
-				this.addEmc(Utils.getEmcValue(stack) * stack.stackSize);
+				this.addEmc(EMCHelper.getEmcValue(stack) * stack.stackSize);
 				inventory[i] = null;
 			}
 			// あふれた分を追加
@@ -149,7 +151,7 @@ public class CondenserMK2TilePEAA extends CondenserMK2Tile
 			return false;
 		}
 
-		return !isStackEqualToLock(stack) && Utils.doesItemHaveEmc(stack);
+		return !isStackEqualToLock(stack) && EMCHelper.doesItemHaveEmc(stack);
 	}
 
 	//-----------------------------------------------------------------------------
@@ -157,7 +159,7 @@ public class CondenserMK2TilePEAA extends CondenserMK2Tile
 	public void readFromNBT(NBTTagCompound nbt)
 	{
 		super.readFromNBT(nbt);
-		//System.out.println("loaaaaaaaaaaaaaaaaaaaaaad");
+
 		isGenerate = nbt.getBoolean("IsGenerate");
 		numAEGU = nbt.getInteger("NumAEGU");
 		generateEmc = nbt.getInteger("GenerateEmc");
@@ -174,7 +176,7 @@ public class CondenserMK2TilePEAA extends CondenserMK2Tile
 	public void writeToNBT(NBTTagCompound nbt)
 	{
 		super.writeToNBT(nbt);
-		//System.out.println("saaaaaaaaaaaaaaaaaaaaaave");
+
 		nbt.setBoolean("IsGenerate", isGenerate);
 		nbt.setInteger("NumAEGU", numAEGU);
 		nbt.setInteger("GenerateEmc", generateEmc);
@@ -254,7 +256,7 @@ public class CondenserMK2TilePEAA extends CondenserMK2Tile
 										inventory[j] = null;
 										break;
 									}
-									else if (Utils.areItemStacksEqual(stack, otherStack))
+									else if (ItemHelper.areItemStacksEqual(stack, otherStack))
 									{
 										int remain = otherStack.getMaxStackSize() - otherStack.stackSize;
 
@@ -284,7 +286,7 @@ public class CondenserMK2TilePEAA extends CondenserMK2Tile
 
 					if (stack != null)
 					{
-						ItemStack result = Utils.pushStackInInv((IInventory) tile, stack);
+						ItemStack result = ItemHelper.pushStackInInv((IInventory) tile, stack);
 
 						if (result == null)
 						{

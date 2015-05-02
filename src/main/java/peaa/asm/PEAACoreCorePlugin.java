@@ -13,7 +13,7 @@ public class PEAACoreCorePlugin implements IFMLLoadingPlugin
 	@Override
 	public String[] getASMTransformerClass() {
 		return new String[]{"peaa.asm.PEAACoreTransformer", "peaa.asm.MK2TextureTransformer"/*, "peaa.asm.ToolTipEventTransformer"*/,
-				"peaa.asm.TransmuteTileTransformer"};
+				/*"peaa.asm.TransmuteTileTransformer"*/};
 	}
 
 	@Override
