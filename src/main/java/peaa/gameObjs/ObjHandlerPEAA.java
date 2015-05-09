@@ -59,7 +59,7 @@ public class ObjHandlerPEAA {
 		GameRegistry.addRecipe(new ItemStack(collectorMK4), "CCC", "CMC", "CCC", 'C', ObjHandler.collectorMK3, 'M', new ItemStack(ObjHandler.matter, 1, 1));
 		GameRegistry.addRecipe(new ItemStack(collectorMK5), "CCC", "CMC", "CCC", 'C', ObjHandlerPEAA.collectorMK4, 'M', new ItemStack(ObjHandler.matter, 1, 1));
 
-		GameRegistry.addRecipe(new ItemStack(aeguMK1_off), "CCC", "CRC", "CCC", 'C', ObjHandler.collectorMK3, 'R', ObjHandler.rmFurnaceOff);
+		GameRegistry.addRecipe(new ItemStack(aeguMK1_off), "CCC", "CPC", "CCC", 'C', ObjHandler.collectorMK3, 'P', ObjHandler.dmPedestal);
 		GameRegistry.addRecipe(new ItemStack(aeguMK2_off), "AAA", "ASA", "AAA", 'A', aeguMK1_off, 'S', new ItemStack(ObjHandler.kleinStars, 1, 4));
 		GameRegistry.addRecipe(new ItemStack(aeguMK3_off), "AAA", "AVA", "AAA", 'A', aeguMK2_off, 'V', kleinStarVertex);
 

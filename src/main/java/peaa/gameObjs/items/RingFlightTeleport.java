@@ -1,18 +1,16 @@
 package peaa.gameObjs.items;
 
-import peaa.PEAACore;
+import java.security.InvalidParameterException;
+
 import moze_intel.projecte.gameObjs.ObjHandler;
 import moze_intel.projecte.gameObjs.items.ItemCharge;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.Potion;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.util.Vec3;
@@ -20,6 +18,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
+import peaa.PEAACore;
+import peaa.network.IsFlyingModeSyncPKT;
+import peaa.network.PacketHandlerPEAA;
+import peaa.network.RingFlightTeleportSyncPKT;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -51,18 +53,20 @@ public class RingFlightTeleport extends ItemCharge
 	@SideOnly(Side.CLIENT)
 	private IIcon ringOn;
 
-	private boolean canFlying;				// (アイテムの所持状態的に)飛べるかどうか
-	private boolean isFlying;				// 飛んでいるかどうか
+	//private boolean canFlying;				// (アイテムの所持状態的に)飛べるかどうか
+	//private boolean isFlyingMode;				// 飛んでいるかどうか
 	// 飛行速度の最低値とチャージ時の速度
-	private static float flyBaseSpeed = 0.022f;
-	private static float[] flySpeed = {flyBaseSpeed, flyBaseSpeed * 2.0F, flyBaseSpeed * 4.0F, flyBaseSpeed * 8.0F};
+	private static final float flyBaseSpeed = 0.022f;
+	private static final float[] flySpeed = {flyBaseSpeed, flyBaseSpeed * 2.0F, flyBaseSpeed * 4.0F, flyBaseSpeed * 8.0F};
 	// 飛行中の最低消費Emcとチャージ時の消費Emc
-	private static float flyBaseEmc = 0.16F;
-	private static float[] flyEmc = {flyBaseEmc, flyBaseEmc * 2.0F, flyBaseEmc * 4.0F, flyBaseEmc * 8.0F};
+	private static final float flyBaseEmc = 0.16F;
+	private static final float[] flyEmc = {flyBaseEmc, flyBaseEmc * 2.0F, flyBaseEmc * 4.0F, flyBaseEmc * 8.0F};
 	// 現在設定されている速度
 	private float flyingSpeed;
 	// 手に持っているかどうか
 	private boolean isHeld;
+	// スロット番号
+	//private int invSlot;
 
 	public RingFlightTeleport()
 	{
@@ -76,19 +80,23 @@ public class RingFlightTeleport extends ItemCharge
 	public void onUpdate(ItemStack stack, World world, Entity entity, int invSlot, boolean isHeldItem)
 	{
 		if (world.isRemote)
-			return;
-		if (invSlot > 8 || !(entity instanceof EntityPlayer)) {
-			canFlying = false;
-			return;
-		}
+			System.out.println("client : " + getIsFlyingMode(stack));
+		else
+			System.out.println("server : " + getIsFlyingMode(stack));
 
-		// getCharge命令を使用するために必須
-		if (!stack.hasTagCompound())
-		{
-			stack.stackTagCompound = new NBTTagCompound();
-		}
+		if (world.isRemote)
+			return;
 
 		EntityPlayer player = (EntityPlayer) entity;
+
+		if (invSlot > 8 || !(entity instanceof EntityPlayer)) {
+			if (getCanFlying(stack) == true)
+			{
+				setCanFlying(stack, false);
+				PacketHandlerPEAA.INSTANCE.sendTo(new RingFlightTeleportSyncPKT(invSlot, getCanFlying(stack), isHeld, getFlyingSpeed(stack)), (EntityPlayerMP) player);
+			}
+			return;
+		}
 
 		// リングを手に持っているかどうか確認
 		this.isHeld = isHeldItem;
@@ -96,20 +104,24 @@ public class RingFlightTeleport extends ItemCharge
 		// EMC補充関係
 		if (getEmc(stack) <= 0 && !consumeFuel(player, stack, 256, false))
 		{
-			if (canFlying)
+			if (getCanFlying(stack))
 			{
-				canFlying = false;
+				setCanFlying(stack, false);
+				PacketHandlerPEAA.INSTANCE.sendTo(new RingFlightTeleportSyncPKT(invSlot, getCanFlying(stack), isHeld, getFlyingSpeed(stack)), (EntityPlayerMP) player);
 			}
 
 			return;
 		}
 
-		canFlying = true;
+		setCanFlying(stack, true);
 		flyingSpeed = flySpeed[this.getCharge(stack)];
+		PacketHandlerPEAA.INSTANCE.sendTo(new RingFlightTeleportSyncPKT(invSlot, getCanFlying(stack), isHeld, getFlyingSpeed(stack)), (EntityPlayerMP) player);
 
-		if (this.isFlying) {
+		if (getIsFlyingMode(stack)) {
 			removeEmc(stack, flyEmc[this.getCharge(stack)]);
 		}
+
+		setInvSlot(stack, invSlot);
 
 	}
 
@@ -128,11 +140,24 @@ public class RingFlightTeleport extends ItemCharge
 		return stack;
 	}
 
+	/**
+	 * 捨てられたなどの理由でワールド上にエンティティとしておかれた場合
+	 */
 	@Override
-	public boolean onDroppedByPlayer(ItemStack stack, EntityPlayer player) {
-		canFlying = false;
-		return true;
-	}
+	public boolean onEntityItemUpdate(EntityItem entityItem)
+    {
+		ItemStack stack = entityItem.getEntityItem();
+		if (getCanFlying(stack)) {
+			setCanFlying(stack, false);
+			setIsFlyingMode(stack, false);
+		}
+		else if (getIsFlyingMode(stack)){
+			// そんなことは想定していないのでエラーを返す
+			throw new InvalidParameterException("飛べないはずなのに飛行モードがONになっています。"
+					+ "この現象は想定外です。");
+		}
+        return false;
+    }
 
 	public static float getBaseSpeed() {
 		return flyBaseSpeed;
@@ -141,19 +166,22 @@ public class RingFlightTeleport extends ItemCharge
 	// onUpdateではplayerMPが渡されているためflight命令が実行できない
 	@SubscribeEvent
 	public void LivingUpdate(LivingUpdateEvent event) {
-		if (event.entityLiving != null && event.entityLiving instanceof EntityPlayer && event.entityLiving.worldObj.isRemote
-				&& canFlying)
+		if (event.entityLiving != null && event.entityLiving instanceof EntityPlayer && event.entityLiving.worldObj.isRemote)
 		{
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
-			Flight(player);
+			ItemStack stack = getStack(player);
+			if (stack != null && stack.hasTagCompound() && getCanFlying(stack))
+				Flight(player, stack);
 		}
 	}
 
-	public void Flight(EntityPlayer player)
+	public void Flight(EntityPlayer player, ItemStack stack)
 	{
-		//if (player.worldObj.isRemote) {
-            this.isFlying = PEAACore.proxy.doFlightOnSide(player, isFlying, flyingSpeed, isHeld);
-		//}
+		System.out.println("Flight brefore : " + getIsFlyingMode(stack));
+		boolean isFlyingMode = PEAACore.proxy.doFlightOnSide(player, getIsFlyingMode(stack), flyingSpeed, isHeld);
+		setIsFlyingMode(stack, isFlyingMode);
+		System.out.println("Flight after : " + getIsFlyingMode(stack));
+		PacketHandlerPEAA.INSTANCE.sendToServer(new IsFlyingModeSyncPKT(getInvSlot(stack), isFlyingMode));
 	}
 
 	//落下時ダメージ無効化処理。LivingFallEventが実装されたバージョンのみ
@@ -161,7 +189,9 @@ public class RingFlightTeleport extends ItemCharge
 	public void onPlayerFall(LivingFallEvent event) {
 		if (event.entityLiving instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer)event.entityLiving;
-			if (this.canFlying) {
+			ItemStack stack = getStack(player);
+			if (stack != null && getCanFlying(stack))
+			{
 				event.setCanceled(true);
 			}
 		}
@@ -170,9 +200,9 @@ public class RingFlightTeleport extends ItemCharge
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public IIcon getIconFromDamage(int dmg)
+	public IIcon getIconIndex(ItemStack stack)
 	{
-		if (isFlying)
+		if (stack != null && stack.hasTagCompound() && getIsFlyingMode(stack))
 		{
 			return ringOn;
 		}
@@ -321,4 +351,113 @@ public class RingFlightTeleport extends ItemCharge
 		return sita;
 	}
 	*/
+
+	//------------------------------------------------------------
+	// getとsetとか
+	public void tagInit()
+	{
+
+	}
+
+	/**
+	 * 手持ちスロットの中から司空の指輪を検索してstackを返す
+	 * @param player
+	 * @param invSlot
+	 * @return
+	 */
+	public ItemStack getStack(EntityPlayer player)
+	{
+		int slot = -1;
+		ItemStack stack;
+
+		for (int i = 0; i < 9; i++)
+		{
+			stack = player.inventory.mainInventory[i];
+			if (stack != null && stack.getItem() instanceof RingFlightTeleport)
+			{
+				// 初めて見つけたなら即登録
+				if (slot == -1)
+				{
+					slot = i;
+				}
+				else
+				{
+					// 見つけたのが飛行モード中
+					if (getIsFlyingMode(stack))
+					{
+						// 1つ前に見つけたのは飛行モードじゃない
+						if (!getIsFlyingMode(player.inventory.mainInventory[slot]))
+						{
+							slot = i;
+						}
+						// どっちも飛行モード
+						else
+						{
+							// そんなことは想定していないのでエラーを返す
+							throw new InvalidParameterException("手持ちに複数の飛行モード中の司空の指輪があります。"
+									+ "この現象は想定外です。");
+						}
+					}
+					// 飛行モードではなかった場合slotの更新はしない
+				}
+			}
+		}
+		if (slot == -1)
+		{
+			return null;
+		}
+		else
+		{
+			return player.inventory.mainInventory[slot];
+		}
+	}
+
+
+	public boolean getCanFlying(ItemStack stack)
+	{
+		return stack.stackTagCompound.getBoolean("canFlying");
+	}
+	public void setCanFlying(ItemStack stack, boolean canFlying)
+	{
+		stack.stackTagCompound.setBoolean("canFlying", canFlying);
+	}
+
+
+	public boolean getIsHeld(ItemStack stack)
+	{
+		return stack.stackTagCompound.getBoolean("isHeld");
+	}
+	public void setIsHeld(ItemStack stack, boolean isHeld)
+	{
+		stack.stackTagCompound.setBoolean("isHeld", isHeld);
+	}
+
+
+	public float getFlyingSpeed(ItemStack stack)
+	{
+		return stack.stackTagCompound.getFloat("flyingSpeed");
+	}
+	public void setFlyingSpeed(ItemStack stack, float flyingSpeed)
+	{
+		stack.stackTagCompound.setFloat("flyingSpeed", flyingSpeed);
+	}
+
+	public boolean getIsFlyingMode(ItemStack stack)
+	{
+		return stack.stackTagCompound.getBoolean("isFlyingMode");
+	}
+	public void setIsFlyingMode(ItemStack stack, boolean isFlyingMode)
+	{
+		stack.stackTagCompound.setBoolean("isFlyingMode", isFlyingMode);
+		System.out.println("setFlyingが呼ばれたよ" + isFlyingMode);
+	}
+
+	public int getInvSlot(ItemStack stack)
+	{
+		return stack.stackTagCompound.getInteger("invSlot");
+	}
+	public void setInvSlot(ItemStack stack, int invSlot)
+	{
+		stack.stackTagCompound.setInteger("invSlot", invSlot);
+	}
 }

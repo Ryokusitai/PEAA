@@ -1,6 +1,7 @@
 package peaa;
 
 import peaa.gameObjs.ObjHandlerPEAA;
+import peaa.network.PacketHandlerPEAA;
 import peaa.proxies.CommonProxy;
 import peaa.utils.GuiHandlerPEAA;
 import net.minecraftforge.common.MinecraftForge;
@@ -32,6 +33,8 @@ public class PEAACore
 
 		ObjHandlerPEAA.register();
 		ObjHandlerPEAA.addRecipes();
+
+		PacketHandlerPEAA.init();
 
 	}
 

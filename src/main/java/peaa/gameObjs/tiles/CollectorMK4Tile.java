@@ -31,7 +31,7 @@ public class CollectorMK4Tile extends CollectorMK1Tile
 	 */
 	public int getSunLevel()
 	{
-		if (worldObj.getBlock(xCoord, yCoord + 1, zCoord) instanceof AEGU || worldObj.provider.isHellWorld)
+		if (worldObj.getBlock(xCoord, yCoord + 1, zCoord) instanceof AEGU)
 		{
 			return 16;
 		}

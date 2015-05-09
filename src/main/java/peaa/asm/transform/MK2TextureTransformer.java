@@ -1,19 +1,10 @@
-package peaa.asm;
+package peaa.asm.transform;
 
 import net.minecraft.launchwrapper.IClassTransformer;
 
-import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.ClassVisitor;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.MethodVisitor;
-import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.Type;
+import org.objectweb.asm.*;
 
-import peaa.asm.PEAACoreTransformer.CustomMethodVisitor;
-import peaa.asm.PEAACoreTransformer.CustomMethodVisitor2;
-import peaa.asm.PEAACoreTransformer.CustomMethodVisitor3;
-import peaa.asm.PEAACoreTransformer.CustomMethodVisitor4;
-import peaa.asm.PEAACoreTransformer.CustomVisitor;
+import peaa.asm.PEAACoreCorePlugin;
 import cpw.mods.fml.common.asm.transformers.deobf.FMLDeobfuscatingRemapper;
 
 /**
@@ -24,7 +15,7 @@ public class MK2TextureTransformer implements IClassTransformer, Opcodes
 {
 	private static final String TARGETCLASSNAME = "moze_intel.projecte.rendering.CondenserMK2ItemRenderer";
 	private static final String TARGETCLASSNAME2 = "moze_intel.projecte.rendering.CondenserMK2Renderer";
-	
+
 
 	@Override
 	public byte[] transform(String name, String transformedName, byte[] basicClass) {

@@ -20,6 +20,12 @@ public class ClientProxy extends CommonProxy
 	public static final float moveFactor = 0.4F;
 
 	@Override
+	public EntityPlayer getEntityPlayerInstance()
+	{
+		return Minecraft.getMinecraft().thePlayer;
+	}
+
+	@Override
 	public void registerClientOnlyEvents()
 	{
 		MinecraftForge.EVENT_BUS.register(new ToolTipEvent());

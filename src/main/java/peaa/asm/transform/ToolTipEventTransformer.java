@@ -1,12 +1,13 @@
-package peaa.asm;
+package peaa.asm.transform;
 
 import org.objectweb.asm.*;
 
+import peaa.asm.PEAACoreCorePlugin;
 import cpw.mods.fml.common.asm.transformers.deobf.FMLDeobfuscatingRemapper;
 import net.minecraft.launchwrapper.IClassTransformer;
 
 /**
- * 上手く動かない
+ * 上手く動かない為未実装
  */
 public class ToolTipEventTransformer implements IClassTransformer, Opcodes
 {

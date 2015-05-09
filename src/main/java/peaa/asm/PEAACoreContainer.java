@@ -16,7 +16,7 @@ public class PEAACoreContainer extends DummyModContainer
 		ModMetadata meta = getMetadata();
 		meta.modId = "PEAACore";
 		meta.name = "PEAACore";
-		meta.version = "1.3.0";
+		meta.version = "1.3.1";
 		meta.authorList = Arrays.asList("ryokusitai");
 		meta.description = "PEAACore Mod";
 		meta.url = "";
