@@ -11,7 +11,7 @@ public class MethodNameList
 	}
 
 	// デバッグ時と実際の環境での動作時ではメソッド名が変わるためその切り替えを行う
-	private final boolean DEBUG = true;//false;
+	private final boolean DEBUG = false;
 
 	private Map<String, String> methodNameList = new HashMap<String,String>();
 	private MethodNameList() {// areItemStacksEqual = func_77970_a		雛形 : methodNameList.put("","");

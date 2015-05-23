@@ -8,7 +8,7 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
-public class IsFlyingModeSyncPKTHandler implements IMessageHandler<IsFlyingModeSyncPKT, IMessage>
+public class IsFlyingModeSyncPKTHandlerToServer implements IMessageHandler<IsFlyingModeSyncPKT, IMessage>
 {
 	@Override
 	public IMessage onMessage(IsFlyingModeSyncPKT pkt, MessageContext ctx)
@@ -17,9 +17,10 @@ public class IsFlyingModeSyncPKTHandler implements IMessageHandler<IsFlyingModeS
 		ItemStack ringFlightTeleport = player.inventory.mainInventory[pkt.getInvSlot()];
 		if (ringFlightTeleport != null && ringFlightTeleport.getItem() instanceof RingFlightTeleport)
 		{
-			//((RingFlightTeleport)ringFlightTeleport.getItem()).setIsFlyingMode(ringFlightTeleport, pkt.getIsFlying());
 			ringFlightTeleport.stackTagCompound.setBoolean("isFlyingMode", pkt.getIsFlying());
-			System.out.println("IsFlyingHandler : " + ((RingFlightTeleport)ringFlightTeleport.getItem()).getIsFlyingMode(ringFlightTeleport));
+
+			// この時には既にクライアントの値が上書きされてしまっているのでさらに上書きする(強引)
+			PacketHandlerPEAA.INSTANCE.sendToAll(new IsFlyingModeSyncPKT(pkt.getInvSlot(), pkt.getIsFlying()));
 		}
 
 		return null;

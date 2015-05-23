@@ -13,8 +13,8 @@ public class PacketHandlerPEAA
 	public static void init()
 	{
 		// IMessageHandlerクラスとMessageクラスの登録
-		INSTANCE.registerMessage(RingFlightTeleportSyncPKTHandler.class, RingFlightTeleportSyncPKT.class, 0, Side.CLIENT);
-		INSTANCE.registerMessage(IsFlyingModeSyncPKTHandler.class, IsFlyingModeSyncPKT.class, 1, Side.SERVER);
+		INSTANCE.registerMessage(IsFlyingModeSyncPKTHandlerToClient.class, IsFlyingModeSyncPKT.class, 1, Side.CLIENT);
+		INSTANCE.registerMessage(IsFlyingModeSyncPKTHandlerToServer.class, IsFlyingModeSyncPKT.class, 0, Side.SERVER);
 	}
 
 }

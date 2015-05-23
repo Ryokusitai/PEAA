@@ -1,10 +1,15 @@
 package peaa;
 
+import java.util.logging.Logger;
+
+import net.minecraftforge.common.MinecraftForge;
+import peaa.config.PEAAConfig;
+import peaa.events.FlightEventHookPEAA;
 import peaa.gameObjs.ObjHandlerPEAA;
 import peaa.network.PacketHandlerPEAA;
 import peaa.proxies.CommonProxy;
 import peaa.utils.GuiHandlerPEAA;
-import net.minecraftforge.common.MinecraftForge;
+import ak.sampleflight.FlightEventHook;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -20,6 +25,8 @@ public class PEAACore
 	public static final String MODNAME = "PEAA";
 	public static final String VERSION = "@VERSION@";
 
+	public static Logger logger = Logger.getLogger("PEAA");
+
 	@Instance(MODID)
 	public static PEAACore instance;
 
@@ -29,6 +36,8 @@ public class PEAACore
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
+		PEAAConfig.init(event.getSuggestedConfigurationFile());
+
 		NetworkRegistry.INSTANCE.registerGuiHandler(PEAACore.instance, new GuiHandlerPEAA());
 
 		ObjHandlerPEAA.register();
@@ -42,7 +51,7 @@ public class PEAACore
 	public void init(FMLInitializationEvent event)
 	{
 		proxy.registerClientOnlyEvents();
-		MinecraftForge.EVENT_BUS.register(ObjHandlerPEAA.ringSpaceTeleport);
+		MinecraftForge.EVENT_BUS.register(new FlightEventHookPEAA());
 
 	}
 
