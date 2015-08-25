@@ -8,6 +8,7 @@ import net.minecraftforge.common.config.Configuration;
 public class PEAAConfig
 {
 	public static boolean registerArchangelSmiteRecipe;
+	public static boolean isHighSpeedMoveWhenLanding;
 
 	public static void init(File configFile)
 	{
@@ -18,6 +19,7 @@ public class PEAAConfig
 			config.load();
 
 			registerArchangelSmiteRecipe = config.getBoolean("enableArchangelSmiteRecipe", "recipes", false, "can create ArchangelSmiteRecipe in survival");
+			isHighSpeedMoveWhenLanding = config.getBoolean("enableHighSpeedMovementAbilityWhenLanding", "spaceRing", false, "enable GemFeet's High-Speed movement ability when landing");
 		}
 		catch (Exception e)
 		{

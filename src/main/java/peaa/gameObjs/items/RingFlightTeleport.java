@@ -1,7 +1,5 @@
 package peaa.gameObjs.items;
 
-import java.security.InvalidParameterException;
-
 import moze_intel.projecte.gameObjs.ObjHandler;
 import moze_intel.projecte.gameObjs.items.ItemCharge;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -175,12 +173,25 @@ public class RingFlightTeleport extends ItemCharge
 	}
 
 	@Override
+	public IIcon getIcon(ItemStack stack, int pass)
+    {
+        return getIconIndex(stack);
+    }
+
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister register)
 	{
 		ringOff = register.registerIcon("peaa:ring/ringFlightTeleport_off");
 		ringOn = register.registerIcon("peaa:ring/ringFlightTeleport_on");
 	}
+
+	/*@Override
+	@SideOnly(Side.CLIENT)
+    public IIcon getIconFromDamageForRenderPass(int p_77618_1_, int p_77618_2_)
+    {
+        return ringOff;
+    }*/
 
 	//-------------------------------------------------------------------------
 	public boolean teleportPlayer(World world, EntityPlayer entityplayer)

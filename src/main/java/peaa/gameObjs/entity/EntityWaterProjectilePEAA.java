@@ -7,6 +7,7 @@ import moze_intel.projecte.gameObjs.entity.EntityWaterProjectile;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.WorldInfo;
@@ -18,7 +19,7 @@ public class EntityWaterProjectilePEAA extends EntityWaterProjectile
 		super(world);
 	}
 
-	public EntityWaterProjectilePEAA(World world, EntityLivingBase entity)
+	public EntityWaterProjectilePEAA(World world, EntityPlayer entity)
 	{
 		super(world, entity);
 	}

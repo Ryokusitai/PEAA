@@ -9,7 +9,10 @@ import static peaa.gameObjs.items.RingFlightTeleport.setIsFlyingMode;
 
 import java.security.InvalidParameterException;
 
+import moze_intel.projecte.gameObjs.ObjHandler;
+import moze_intel.projecte.utils.PlayerHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
@@ -87,7 +90,7 @@ public class FlightEventHookPEAA
 	 * @param invSlot
 	 * @return
 	 */
-	public ItemStack getStack(EntityPlayer player)
+	public static ItemStack getStack(EntityPlayer player)
 	{
 		int slot = -1;
 		ItemStack stack;

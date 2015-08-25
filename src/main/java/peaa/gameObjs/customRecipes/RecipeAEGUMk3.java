@@ -34,16 +34,6 @@ public class RecipeAEGUMk3 extends ShapedRecipes
 	@Override
 	public boolean matches(InventoryCrafting inv, World world)
 	{
-		/*if (this.checkMatch(inv, 0, 0, true))
-		{
-			return true;
-		}
-		if (this.checkMatch(inv, 0, 0, false))
-		{
-			return true;
-		}
-
-		return false;*/
 		if (inv.getSizeInventory() < 9) { return false;}
 		for (int i = 0; i < inv.getSizeInventory(); i++)
 		{
@@ -65,59 +55,7 @@ public class RecipeAEGUMk3 extends ShapedRecipes
 			}
 			System.out.println("call this");
 		}
-		//output = new ItemStack(ObjHandlerPEAA.aeguMK3_off);
-		return true;
-	}
 
-	private boolean checkMatch(InventoryCrafting inv, int i, int j, boolean unknown)
-	{
-		System.out.println(i + " : " + j);
-		for (int k = 0; k < 3; k++)
-		{
-			for (int l = 0; l < 3; l++)
-			{
-				int i1 = k - i;
-				int j1 = l - j;
-				ItemStack itemstack = null;
-				System.out.println(i1 + " : " + j1 + " : " + recipeWidth + " : " + recipeHeight);
-				if (i1 >= 0 && j1 >= 0 && i1 < this.recipeWidth && j1 < this.recipeHeight)
-				{
-					System.out.println("in");
-					if (unknown)
-					{
-						itemstack = this.recipeItems[this.recipeWidth - j1 - 1 + j1 * this.recipeWidth];
-					}
-					else
-					{
-						itemstack = this.recipeItems[i1 + j1 * this.recipeWidth];
-					}
-				}
-
-				ItemStack itemstack1 = inv.getStackInRowAndColumn(k, l);
-System.out.println(itemstack1);
-				if (itemstack1 != null || itemstack != null)
-				{
-					System.out.println(itemstack1 == null && itemstack != null || itemstack1 != null && itemstack == null);
-					if (itemstack1 == null && itemstack != null || itemstack1 != null && itemstack == null)
-					{
-						return false;
-					}
-
-					System.out.println(itemstack.getItem() != itemstack1.getItem());
-					if (itemstack.getItem() != itemstack1.getItem())
-					{
-						return false;
-					}
-
-					System.out.println(itemstack.getItemDamage() != 32767 && itemstack.getItemDamage() != itemstack1.getItemDamage());
-					if (itemstack.getItemDamage() != 32767 && itemstack.getItemDamage() != itemstack1.getItemDamage())
-					{
-						return false;
-					}
-				}
-			}
-		}
-		System.out.println("true");
 		return true;
 	}
 

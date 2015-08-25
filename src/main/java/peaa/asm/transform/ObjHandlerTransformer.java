@@ -83,12 +83,14 @@ public class ObjHandlerTransformer implements IClassTransformer, Opcodes
 	 * EvertideAmulet から EvertideAmuletPEAA
 	 * に変更
 	 *
+	 * GemFeetもGemFeetPEAAに変更
 	 */
 	class CustomMethodVisitor extends MethodVisitor {
 		static final String targetFieldName = "condenserMk2";
 		static final String targetFieldName2 = "rmFurnaceOff";
 		static final String targetFieldName3 = "rmFurnaceOn";
 		static final String targetFieldName4 = "everTide";
+		static final String targetFieldName5 = "gemFeet";
 
 		public CustomMethodVisitor(int api, MethodVisitor mv) {
             super(api, mv);
@@ -131,6 +133,13 @@ public class ObjHandlerTransformer implements IClassTransformer, Opcodes
 				mv.visitInsn(DUP);
 				mv.visitMethodInsn(INVOKESPECIAL, "peaa/gameObjs/items/EvertideAmuletPEAA", "<init>", "()V", false);
 
+			}
+			// GemFeetPEAAに変更
+			if (targetFieldName5.equals(name)) {
+				PEAACoreCorePlugin.logger.info("Start [GemFeet] Transform");
+				mv.visitTypeInsn(NEW, "peaa/gameObjs/items/armor/GemFeetPEAA");
+				mv.visitInsn(DUP);
+				mv.visitMethodInsn(INVOKESPECIAL, "peaa/gameObjs/items/armor/GemFeetPEAA", "<init>", "()V", false);
 			}
 
 			super.visitFieldInsn(opcode, owner, name, desc);

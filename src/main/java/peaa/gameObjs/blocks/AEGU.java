@@ -2,8 +2,6 @@ package peaa.gameObjs.blocks;
 
 import java.util.Random;
 
-import peaa.gameObjs.ObjHandlerPEAA;
-import peaa.gameObjs.tiles.CondenserMK2TilePEAA;
 import moze_intel.projecte.PECore;
 import moze_intel.projecte.gameObjs.ObjHandler;
 import moze_intel.projecte.utils.Constants;
@@ -14,6 +12,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import peaa.gameObjs.ObjHandlerPEAA;
+import peaa.gameObjs.tiles.CondenserMK2TilePEAA;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
