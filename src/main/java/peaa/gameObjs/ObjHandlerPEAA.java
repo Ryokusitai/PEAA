@@ -65,8 +65,8 @@ public class ObjHandlerPEAA {
 
 		// 司空の指輪
 		GameRegistry.addShapelessRecipe(new ItemStack(ringSpaceTeleport),
-				new ItemStack(ObjHandler.blackHole, 1), new ItemStack(ObjHandler.eternalDensity, 1),
-				new ItemStack(ObjHandler.swrg, 1), new ItemStack(ObjHandler.matterBlock, 1, 1), new ItemStack(ObjHandler.matter, 1, 1), new ItemStack(ObjHandler.matter, 1, 1),
+				new ItemStack(ObjHandler.swrg, 1), new ItemStack(ObjHandler.voidRing, 1),
+				new ItemStack(ObjHandler.matter, 1, 1), new ItemStack(ObjHandler.matter, 1, 1), new ItemStack(ObjHandler.matter, 1, 1), new ItemStack(ObjHandler.matter, 1, 1),
 				new ItemStack(ObjHandler.matter, 1, 1), new ItemStack(ObjHandler.matter, 1, 1), new ItemStack(ObjHandler.matter, 1, 1));
 
 		// 大天使の指輪 ダークマターではなくレッドマターを要求するようにレシピ変更

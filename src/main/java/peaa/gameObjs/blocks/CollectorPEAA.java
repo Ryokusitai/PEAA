@@ -46,7 +46,7 @@ public class CollectorPEAA extends Collector
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World var1, int var2)
+	public TileEntity createTileEntity(World var1, int var2)
 	{
 		if (tier == 4)
 		{

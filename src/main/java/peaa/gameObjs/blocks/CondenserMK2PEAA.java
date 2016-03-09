@@ -43,7 +43,7 @@ public class CondenserMK2PEAA extends CondenserMK2
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World var1, int var2)
+	public TileEntity createTileEntity(World var1, int var2)
 	{
 		TileEntity tile = new CondenserMK2TilePEAA();
 		if (!var1.isRemote) {

@@ -51,7 +51,7 @@ public class CondenserMK2TilePEAA extends CondenserMK2Tile
 
 			if (isGenerate) {
 				//System.out.println("generateEmc : " + ((double)generateEmc / 20));
-				this.addEmc((double)generateEmc / 20);
+				this.addEMC((double)generateEmc / 20);
 
 			}
 		}
@@ -69,7 +69,7 @@ public class CondenserMK2TilePEAA extends CondenserMK2Tile
 				continue;
 			}
 			// 整数オーバーフローチェック
-			if ((long)EMCHelper.getEmcValue(stack) * stack.stackSize + (int)this.getStoredEmc() > this.getMaxEmc()) {
+			if ((long)EMCHelper.getEmcValue(stack) * stack.stackSize + (int)this.getStoredEmc() > this.getMaximumEmc()) {
 				//System.out.println((long) ((long)Utils.getEmcValue(stack) + this.getStoredEmc()));
 				/*if ((long) ((long)Utils.getEmcValue(stack) + this.getStoredEmc()) > this.getMaxEmc()) {		// 1つ変換するだけでオーバーフローになる場合
 					System.out.println("pattern 1-1");
@@ -77,12 +77,12 @@ public class CondenserMK2TilePEAA extends CondenserMK2Tile
 					buffer += (int) ((long)((long)Utils.getEmcValue(stack) + this.getStoredEmc()) - this.getMaxEmc());	// あふれるぶんを記録
 				} else {*/
 				//	System.out.println("pattern 1-2");
-					this.addEmc(EMCHelper.getEmcValue(stack));
+					this.addEMC(EMCHelper.getEmcValue(stack));
 				//}
 				decrStackSize(i, 1);
 			}
 			else {
-				this.addEmc(EMCHelper.getEmcValue(stack) * stack.stackSize);
+				this.addEMC(EMCHelper.getEmcValue(stack) * stack.stackSize);
 				inventory[i] = null;
 			}
 			// あふれた分を追加
@@ -97,7 +97,7 @@ public class CondenserMK2TilePEAA extends CondenserMK2Tile
 		while (this.hasSpace() && this.getStoredEmc() >= requiredEmc)
 		{
 			pushStack();
-			this.removeEmc(requiredEmc);
+			this.removeEMC(requiredEmc);
 		}
 	}
 

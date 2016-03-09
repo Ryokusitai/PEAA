@@ -49,14 +49,14 @@ public class RMFurnaceTilePEAA extends RMFurnaceTile
 				if (KleinStar.getEmc(inventory[0]) >= EMC_CONSUMPTION)
 				{
 					KleinStar.removeEmc(inventory[0], EMC_CONSUMPTION);
-					this.addEmc(EMC_CONSUMPTION);
+					this.addEMC(EMC_CONSUMPTION);
 				}
 			}
 
 			if (this.getStoredEmc() >= EMC_CONSUMPTION)
 			{
 				furnaceBurnTime = 1;
-				this.removeEmc(EMC_CONSUMPTION);
+				this.removeEMC(EMC_CONSUMPTION);
 			}
 
 			if (furnaceBurnTime == 0 && canSmelt())

@@ -1,5 +1,6 @@
 package peaa.gameObjs.gui;
 
+import moze_intel.projecte.utils.Constants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -29,9 +30,10 @@ public class GUICollectorMK5 extends GuiContainer
 	{
 		this.fontRendererObj.drawString(Integer.toString(tile.displayEmc), 91, 32, 4210752);
 
-		int kleinCharge = tile.displayKleinCharge;
+		double kleinCharge = tile.displayItemCharge;
+
 		if (kleinCharge != -1)
-			this.fontRendererObj.drawString(Integer.toString(kleinCharge), 91, 44, 4210752);
+			this.fontRendererObj.drawString(Constants.EMC_FORMATTER.format(kleinCharge), 91, 44, 4210752);
 	}
 
 	@Override

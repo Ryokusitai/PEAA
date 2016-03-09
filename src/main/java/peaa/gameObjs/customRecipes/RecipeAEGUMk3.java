@@ -53,7 +53,6 @@ public class RecipeAEGUMk3 extends ShapedRecipes
 			} else if (!(input.getItem() == Item.getItemFromBlock(ObjHandlerPEAA.aeguMK2_off))) {
 				return false;
 			}
-			System.out.println("call this");
 		}
 
 		return true;
